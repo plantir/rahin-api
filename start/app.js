@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -10,13 +10,18 @@
 | provider here.
 |
 */
+const path = require('path');
 const providers = [
-  "@adonisjs/framework/providers/AppProvider",
-  "@adonisjs/auth/providers/AuthProvider",
-  "@adonisjs/bodyparser/providers/BodyParserProvider",
-  "@adonisjs/cors/providers/CorsProvider",
+  '@adonisjs/framework/providers/AppProvider',
+  '@adonisjs/auth/providers/AuthProvider',
+  '@adonisjs/bodyparser/providers/BodyParserProvider',
+  '@adonisjs/cors/providers/CorsProvider',
   // '@adonisjs/lucid/providers/LucidProvider',
-  "lucid-mongo/providers/LucidMongoProvider"
+  'lucid-mongo/providers/LucidMongoProvider',
+  path.join(__dirname, '..', 'providers', 'BaseModelProvider'),
+  // 'vrwebdesign-adonis/BaseModel/providers/BaseModelProvider',
+  'vrwebdesign-adonis/BaseRoute/providers/BaseRouteProvider',
+  'vrwebdesign-adonis/Helper/providers/HelperProvider'
 ];
 
 /*
@@ -30,7 +35,7 @@ const providers = [
 */
 const aceProviders = [
   // '@adonisjs/lucid/providers/MigrationsProvider',
-  "lucid-mongo/providers/MigrationsProvider"
+  'lucid-mongo/providers/MigrationsProvider'
 ];
 
 /*
