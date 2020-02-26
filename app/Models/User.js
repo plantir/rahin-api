@@ -32,6 +32,7 @@ class User extends Model {
       user = await User.create({ mobile });
     }
     await user.send_verify_code();
+    return 'success';
   }
 
   send_verify_code() {
