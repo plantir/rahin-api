@@ -24,6 +24,9 @@ class User extends Model {
   static get hidden() {
     return ['password'];
   }
+  static get allowFields() {
+    return ['name', 'family', 'email', 'birthday', 'tel', 'gender'];
+  }
   static async register(mobile) {
     let user = await this.query()
       .where({ mobile })

@@ -6,6 +6,13 @@ class UserController extends Resource {
     super();
     this.Model = use('App/Models/User');
   }
+  async update({ request, auth }) {
+    let user = await auth.getUser();
+    let data = request.only(this.Model.allowFields);
+    user.merge(data);
+    await user.save();
+    return user;
+  }
   async index() {
     return this.Model.query().paginate();
   }

@@ -9,9 +9,7 @@ class AuthController {
   async login({ request, auth }) {
     let { mobile, password } = request.post();
     let jwt_token = await auth.attempt(mobile, password);
-    return {
-      jwt_token
-    };
+    return jwt_token;
   }
 }
 
