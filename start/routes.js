@@ -12,14 +12,4 @@
 | http://adonisjs.com/docs/4.1/routing
 |
 */
-
-/** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route');
-
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' };
-});
-
-// Route.post("user/:id", "UserController.store");
-// Route.get("user/:id", "UserController.show");
-Route.resource('users', 'UserController');
+use('require-all')(`${use('Helpers').appRoot()}/app/Routes`);

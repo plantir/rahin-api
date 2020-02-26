@@ -16,12 +16,15 @@ const providers = [
   '@adonisjs/auth/providers/AuthProvider',
   '@adonisjs/bodyparser/providers/BodyParserProvider',
   '@adonisjs/cors/providers/CorsProvider',
+  '@adonisjs/framework/providers/ViewProvider',
   // '@adonisjs/lucid/providers/LucidProvider',
   'lucid-mongo/providers/LucidMongoProvider',
   path.join(__dirname, '..', 'providers', 'BaseModelProvider'),
   // 'vrwebdesign-adonis/BaseModel/providers/BaseModelProvider',
   'vrwebdesign-adonis/BaseRoute/providers/BaseRouteProvider',
-  'vrwebdesign-adonis/Helper/providers/HelperProvider'
+  'vrwebdesign-adonis/Helper/providers/HelperProvider',
+  'vrwebdesign-adonis/Providers/sms',
+  '@rocketseat/adonis-bull/providers/Bull'
 ];
 
 /*

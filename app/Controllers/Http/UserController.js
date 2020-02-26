@@ -7,7 +7,7 @@ class UserController extends Resource {
     this.Model = use('App/Models/User');
   }
   async index() {
-    return this.Model.where('emails.email', 'mail@armin.pro').paginate();
+    return this.Model.query().paginate();
   }
   async store() {
     let user = await this.Model.create({
