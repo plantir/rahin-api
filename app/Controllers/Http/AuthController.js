@@ -3,7 +3,8 @@ const User = use('App/Models/User');
 class AuthController {
   async register({ request }) {
     let { mobile } = request.post();
-    User.register(mobile);
+    await User.register(mobile);
+    return 'success';
   }
 
   async login({ request, auth }) {
