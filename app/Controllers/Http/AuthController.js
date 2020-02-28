@@ -8,9 +8,14 @@ class AuthController {
   }
 
   async login({ request, auth }) {
-    let { mobile, password } = request.post();
-    let jwt_token = await auth.attempt(mobile, password);
-    return jwt_token;
+    try {
+      let { mobile, password } = request.post();
+      await auth.attempt(mobile, password);
+      let user = await User.findBy({ mobile });
+      return auth.generate(user, true);
+    } catch (error) {
+      throw new Error('کد تایید صحیح نمی باشد.');
+    }
   }
 }
 

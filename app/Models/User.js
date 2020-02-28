@@ -27,6 +27,9 @@ class User extends Model {
   static get allowFields() {
     return ['name', 'family', 'email', 'birthday', 'tel', 'gender'];
   }
+  static get dates() {
+    return super.dates.concat(['birthday']);
+  }
   static async register(mobile) {
     let user = await this.query()
       .where({ mobile })

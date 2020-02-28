@@ -2,8 +2,9 @@
 const Route = use('Route');
 
 Route.group(() => {
+  Route.get('', 'UserController.get');
   Route.put('', 'UserController.update');
 })
-  .prefix('users')
+  .prefix('user')
   .namespace('Site')
   .middleware('auth');

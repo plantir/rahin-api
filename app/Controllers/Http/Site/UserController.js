@@ -6,6 +6,9 @@ class UserController extends Resource {
     super();
     this.Model = use('App/Models/User');
   }
+  async get({ auth }) {
+    return auth.getUser();
+  }
   async update({ request, auth }) {
     let user = await auth.getUser();
     let data = request.only(this.Model.allowFields);
