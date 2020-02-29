@@ -74,8 +74,12 @@ class User extends Model {
     return this.hasMany('App/Models/Token');
   }
 
-  emails() {
-    return this.referMany('App/Models/Email');
+  personality_tests() {
+    return this.embedsMany(
+      'App/Models/PersonalityTest',
+      '_id',
+      'personality_tests'
+    );
   }
 }
 
