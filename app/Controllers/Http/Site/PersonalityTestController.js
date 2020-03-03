@@ -76,13 +76,6 @@ class PersonalityTestController {
   _hexaco_personality_tests(questions) {
     let point = _.groupBy(questions, 'type');
     for (const [key, value] of Object.entries(point)) {
-      point[key] = _.sumBy(value, 'answer');
-    }
-    return { answer: { ...point }, questions, test_name: 'hexaco' };
-  }
-  _chinese_personality_tests(questions) {
-    let point = _.groupBy(questions, 'type');
-    for (const [key, value] of Object.entries(point)) {
       point[key] = _.sumBy(value, item => {
         let value = item.answer;
         if (item.reverse) {
@@ -93,8 +86,20 @@ class PersonalityTestController {
     }
     return { answer: { ...point }, questions, test_name: 'hexaco' };
   }
+  _chinese_personality_tests(questions) {
+    var sorted = _(questions)
+      .groupBy('type')
+      .map((items, param) => {
+        return {
+          param,
+          count: _.sumBy(items, 'answer')
+        };
+      })
+      .orderBy('count', 'desc')
+      .value();
+    return { answer: sorted, questions, test_name: 'chinese' };
+  }
   _competition_personality_tests(questions) {
-    let point = _.countBy(questions, 'answer');
     var sorted = _(questions)
       .countBy('answer')
       .map((count, job) => ({
