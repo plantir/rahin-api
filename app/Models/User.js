@@ -15,6 +15,9 @@ const Env = use('Env');
 class User extends Model {
   static boot() {
     super.boot();
+    this.addHook('beforeCreate', async userInstance => {
+      userInstance.personality_tests = userInstance.personality_tests || [];
+    });
     this.addHook('beforeSave', async userInstance => {
       if (userInstance.dirty.password) {
         userInstance.password = await Hash.make(userInstance.password);
@@ -39,7 +42,6 @@ class User extends Model {
     }
     await user.send_verify_code();
   }
-
   send_verify_code() {
     let token = Token.generate();
     this.password = token;
