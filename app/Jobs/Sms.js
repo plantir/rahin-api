@@ -25,11 +25,13 @@ class Sms {
     // if (is_banned) {
     //   return;
     // }
+    let is_fast = data.data.is_fast;
+    delete data.data.is_fast;
     return SMS.send({
       view: data.template,
       data: data.data,
       to: data.to,
-      is_fast: data.data.is_fast
+      is_fast: is_fast
     });
   }
   onCompleted(job, result) {

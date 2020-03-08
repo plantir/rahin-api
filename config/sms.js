@@ -10,7 +10,7 @@ module.exports = {
       SecretKey: ')l!e(o9@5*p#a&r%d^'
     },
     templates: {
-      'sms.verify': 13675
+      'sms.verify': 22227
     }
   },
   masgsm: {

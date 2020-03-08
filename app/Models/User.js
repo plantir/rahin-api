@@ -49,7 +49,7 @@ class User extends Model {
       token,
       type: 'password'
     });
-    this.send_sms({ template: 'sms.verify', data: { token } });
+    this.send_sms({ template: 'sms.verify', data: { token, is_fast: true } });
     return this.save();
   }
 
