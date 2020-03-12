@@ -1,7 +1,7 @@
 'use strict';
 const Video = use('App/Models/Video');
 const UserHook = (exports = module.exports = {});
-
+const Hash = use('Hash');
 UserHook.beforeCreate = async modelInstance => {
   modelInstance.personality_tests = modelInstance.personality_tests || [];
   modelInstance.progress_level = 1;
