@@ -15,14 +15,8 @@ const Env = use('Env');
 class User extends Model {
   static boot() {
     super.boot();
-    this.addHook('beforeCreate', async userInstance => {
-      userInstance.personality_tests = userInstance.personality_tests || [];
-    });
-    this.addHook('beforeSave', async userInstance => {
-      if (userInstance.dirty.password) {
-        userInstance.password = await Hash.make(userInstance.password);
-      }
-    });
+    this.addHook('beforeCreate', 'UserHook.beforeCreate');
+    this.addHook('beforeSave', 'UserHook.beforeSave');
   }
   static get hidden() {
     return ['password'];
@@ -71,7 +65,26 @@ class User extends Model {
       console.log(error);
     }
   }
-
+  forClient() {
+    let {
+      _id,
+      mobile,
+      progress_level,
+      next_step_label,
+      next_step_url,
+      created_at,
+      updated_at
+    } = this.toJSON();
+    return {
+      _id,
+      mobile,
+      progress_level,
+      next_step_label,
+      next_step_url,
+      created_at,
+      updated_at
+    };
+  }
   tokens() {
     return this.hasMany('App/Models/Token');
   }

@@ -19,20 +19,25 @@ class PersonalityTestController {
         break;
       case 'gardner':
         answer = this._gardner_personality_tests(questions);
+        user.progress_level = 2;
         break;
       case 'hexaco':
         answer = this._hexaco_personality_tests(questions);
-        break;
+        user.progress_level = 3;
       case 'chinese':
         answer = this._chinese_personality_tests(questions);
+        user.progress_level = 4;
+        break;
         break;
       case 'competition':
         answer = this._competition_personality_tests(questions);
+        user.progress_level = 5;
         break;
 
       default:
         break;
     }
+    await user.save();
     try {
       let personality_tests = await user
         .toJSON()
@@ -42,7 +47,9 @@ class PersonalityTestController {
         await user.personality_tests().create(answer);
       } else {
         await User.where({ 'personality_tests.test_name': test_name }).update({
-          $set: { 'personality_tests.$': answer }
+          $set: {
+            'personality_tests.$': answer
+          }
         });
       }
     } catch (error) {

@@ -2,10 +2,9 @@
 const Route = use('Route');
 
 Route.group(() => {
-  Route.get('', 'UserController.get');
-  Route.put('', 'UserController.update');
-  Route.post('seeVideo', 'UserController.seeVideo');
+  Route.get('', 'VideoController.index');
+  Route.get(':level', 'VideoController.show');
 })
-  .prefix('user')
+  .prefix('videos')
   .namespace('Site')
   .middleware('auth');
