@@ -24,10 +24,10 @@ class PersonalityTestController {
       case 'hexaco':
         answer = this._hexaco_personality_tests(questions);
         user.progress_level = 3;
+        break;
       case 'chinese':
         answer = this._chinese_personality_tests(questions);
         user.progress_level = 4;
-        break;
         break;
       case 'competition':
         answer = this._competition_personality_tests(questions);
