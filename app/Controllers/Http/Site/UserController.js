@@ -35,6 +35,12 @@ class UserController extends Resource {
     user = user.forClient();
     return user;
   }
+
+  async getTestAnswer({ params: { name }, auth }) {
+    let user = await auth.getUser();
+    return user.toJSON().personality_tests.find(item => item.test_name == name)
+      .answer;
+  }
 }
 
 module.exports = UserController;
