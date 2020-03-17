@@ -3,9 +3,6 @@
 /** @type {typeof import('lucid-mongo/src/LucidMongo/Model')} */
 const Model = use('BaseModel');
 
-/** @type {import('@adonisjs/framework/src/Hash')} */
-const Hash = use('Hash');
-
 const Bull = use('Rocketseat/Bull');
 
 const SMS_Job = use('App/Jobs/Sms');
@@ -19,7 +16,7 @@ class User extends Model {
     this.addHook('beforeSave', 'UserHook.beforeSave');
   }
   static get hidden() {
-    return ['password'];
+    return ['password', 'role'];
   }
   static get allowFields() {
     return ['name', 'family', 'email', 'birthday', 'tel', 'gender'];
@@ -69,6 +66,12 @@ class User extends Model {
     let {
       _id,
       mobile,
+      gender,
+      name,
+      family,
+      birthday,
+      tel,
+      email,
       progress_level,
       next_step_label,
       next_step_url,
@@ -78,6 +81,12 @@ class User extends Model {
     return {
       _id,
       mobile,
+      gender,
+      name,
+      family,
+      birthday,
+      tel,
+      email,
       progress_level,
       next_step_label,
       next_step_url,

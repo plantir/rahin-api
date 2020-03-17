@@ -80,27 +80,27 @@ function calculate_next_step(level) {
       break;
     case 5:
       label = 'مشاهده فیلم‌های شناخت رشته‌ی مناسب من';
-      url = '/profile/videos/5';
+      url = '/videos/5';
       break;
     case 6:
       label = 'مشاهده فیلم‌های ادامه مسیر در دانشگاه';
-      url = '/profile/videos/6';
+      url = '/videos/6';
       break;
     case 7:
       label = 'مشاهده فیلم‌های از دیدگاه کارشناس';
-      url = '/profile/videos/7';
+      url = '/videos/7';
       break;
     case 8:
       label = 'مشاهده فیلم‌های افراد ناراضی و دلایل';
-      url = '/profile/videos/8';
+      url = '/videos/8';
       break;
     case 9:
       label = 'مشاهده فیلم‌های افراد موفق و سختی ها';
-      url = '/profile/videos/9';
+      url = '/videos/9';
       break;
     case 10:
       label = 'مشاهده فیلم‌های آموزشی سبک زندگی متناسب با رشته';
-      url = '/profile/videos/10';
+      url = '/videos/10';
       break;
     case 11:
       label = 'تست عملکرد';

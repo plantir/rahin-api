@@ -12,7 +12,7 @@ class AuthController {
       let { mobile, password } = request.post();
       await auth.attempt(mobile, password);
       let user = await User.findBy({ mobile });
-      return auth.generate(user, true);
+      return auth.generate(user.forClient(), true);
     } catch (error) {
       throw new Error('کد تایید صحیح نمی باشد.');
     }

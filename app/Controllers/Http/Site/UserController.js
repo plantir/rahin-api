@@ -16,7 +16,7 @@ class UserController extends Resource {
     let data = request.only(this.Model.allowFields);
     user.merge(data);
     await user.save();
-    return user;
+    return user.forClient();
   }
   async seeVideo({ request, auth }) {
     let user = await auth.getUser();
