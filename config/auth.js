@@ -66,17 +66,7 @@ module.exports = {
   |
   */
   jwt: {
-    serializer: 'LucidMongo',
-    model: 'App/Models/User',
-    scheme: 'jwt',
-    uid: 'mobile',
-    password: 'password',
-    options: {
-      secret: Env.get('APP_KEY')
-    }
-  },
-  jwtAdmin: {
-    serializer: 'LucidMongo',
+    serializer: 'lucid',
     model: 'App/Models/User',
     scheme: 'jwt',
     uid: 'username',

@@ -5,17 +5,19 @@ const Schema = use('Schema');
 
 class VideosSchema extends Schema {
   up() {
-    this.create('videos', table => {
+    this.create('roles', table => {
       table.increments();
-      table.integer('level');
-      table.string('label');
-      table.json('fields');
+      table
+        .string('name', 254)
+        .notNullable()
+        .unique();
+      table.boolean('is_deleted').defaultTo(false);
       table.timestamps();
     });
   }
 
   down() {
-    this.drop('videos');
+    this.drop('roles');
   }
 }
 

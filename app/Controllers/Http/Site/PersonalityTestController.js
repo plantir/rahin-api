@@ -37,24 +37,19 @@ class PersonalityTestController {
       default:
         break;
     }
-    await user.save();
     try {
-      let personality_tests = await user
+      let personality_index = user
         .toJSON()
-        .personality_tests.find(item => item.test_name == test_name);
-
-      if (!personality_tests) {
-        await user.personality_tests().create(answer);
+        .personality_tests.findIndex(item => item.test_name == test_name);
+      if (personality_index == -1) {
+        user.personality_tests.push(answer);
       } else {
-        await User.where({ 'personality_tests.test_name': test_name }).update({
-          $set: {
-            'personality_tests.$': answer
-          }
-        });
+        user.personality_tests[personality_index] = answer;
       }
     } catch (error) {
       console.log(error);
     }
+    await user.save();
     return { ...answer, user };
   }
 
@@ -70,7 +65,7 @@ class PersonalityTestController {
     } else {
       type = 1;
     }
-    return { answer: { type: type }, questions, test_name: 'free' };
+    return { answer: { type: type }, test_name: 'free' };
   }
 
   _gardner_personality_tests(questions) {
@@ -104,7 +99,7 @@ class PersonalityTestController {
       })
       .orderBy('count', 'desc')
       .value();
-    return { answer: sorted, questions, test_name: 'chinese' };
+    return { answer: sorted, test_name: 'chinese' };
   }
   _competition_personality_tests(questions) {
     var sorted = _(questions)
@@ -116,17 +111,7 @@ class PersonalityTestController {
       .orderBy('count', 'desc')
       .value();
 
-    return { answer: sorted, questions, test_name: 'competition' };
-  }
-
-  async get() {
-    // .where({ personality_tests: 1 })
-    // .fetch();
-    // return User.where({ 'personality_tests.name': 'free' }).fetch();
-    User.where({ 'personality_tests.test_name': 'free' }).update({
-      $set: { 'personality_tests.$': { name: 'armin' } }
-    });
-    return 'success';
+    return { answer: sorted, test_name: 'competition' };
   }
 }
 

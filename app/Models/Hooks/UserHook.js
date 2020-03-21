@@ -3,9 +3,9 @@ const Video = use('App/Models/Video');
 const UserHook = (exports = module.exports = {});
 const Hash = use('Hash');
 UserHook.beforeCreate = async modelInstance => {
-  modelInstance.personality_tests = [];
   modelInstance.progress_level = 1;
-  modelInstance.watched_videos = [];
+  modelInstance.personality_tests = [];
+  modelInstance.videos = [];
 };
 UserHook.beforeSave = async modelInstance => {
   if (modelInstance.dirty.password) {
@@ -16,47 +16,25 @@ UserHook.beforeSave = async modelInstance => {
     modelInstance.next_step_label = label;
     modelInstance.next_step_url = url;
     if (modelInstance.progress_level >= 5) {
-      let video = await Video.findBy({ level: modelInstance.progress_level });
-      if (video) {
-        modelInstance[`video_${modelInstance.progress_level}`] = video.toJSON();
-      }
+      modelInstance = await fix_user_video(modelInstance);
     }
   }
-  if (modelInstance.dirty[`video_${modelInstance.progress_level}`]) {
-    let step = modelInstance.dirty[`video_${modelInstance.progress_level}`];
-    let is_step_completed = true;
-    for (const field of step.fields) {
-      for (const video of field.videos) {
-        if (!video.is_seen) {
-          is_step_completed = false;
-        }
-      }
+  if (modelInstance.dirty.videos) {
+    let step = JSON.parse(modelInstance.videos).find(
+      item => item.level == modelInstance.progress_level
+    );
+    if (!step) {
+      return;
     }
+    let is_step_completed = check_is_compelete(step);
+
     if (is_step_completed) {
       modelInstance.progress_level += 1;
       let { label, url } = calculate_next_step(modelInstance.progress_level);
       modelInstance.next_step_label = label;
       modelInstance.next_step_url = url;
-      let video = await Video.findBy({ level: modelInstance.progress_level });
-      if (video) {
-        modelInstance[`video_${modelInstance.progress_level}`] = video.toJSON();
-      }
+      modelInstance = await fix_user_video(modelInstance);
     }
-    // let video = await Video.findBy({ level: modelInstance.progress_level });
-    // let video_count = 0;
-    // let watched_count = 0;
-    // for (let field of video.fields) {
-    //   video_count += field.videos.length;
-    // }
-    // let video_level = modelInstance.watched_videos.find(
-    //   item => item.level == modelInstance.progress_level
-    // );
-    // for (let field of video_level.fields) {
-    //   watched_count += field.videos.length;
-    // }
-    // if (watched_count == video_count) {
-    //   modelInstance.progress_level += 1;
-    // }
   }
 };
 function calculate_next_step(level) {
@@ -108,4 +86,28 @@ function calculate_next_step(level) {
       break;
   }
   return { label, url };
+}
+async function fix_user_video(modelInstance) {
+  let video = await Video.findBy({ level: modelInstance.progress_level });
+  if (video) {
+    let user_videos = JSON.parse(modelInstance.videos);
+    let exist_video = user_videos.find(
+      item => item.level == modelInstance.progress_level
+    );
+    if (!exist_video) {
+      user_videos.push(video);
+      modelInstance.videos = JSON.stringify(user_videos);
+    }
+    return modelInstance;
+  }
+}
+function check_is_compelete(step) {
+  for (const field of step.fields) {
+    for (const video of field.videos) {
+      if (!video.is_seen) {
+        return false;
+      }
+    }
+  }
+  return true;
 }

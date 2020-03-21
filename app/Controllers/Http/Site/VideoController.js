@@ -33,8 +33,8 @@ class VideoController {
    */
   async show({ params: { level }, auth, request, response, view }) {
     let user = await auth.getUser();
-    return user[`video_${level}`];
-    return Video.findBy({ level: +level });
+    user = user.toJSON();
+    return user.videos.find(item => item.level == level);
   }
 }
 

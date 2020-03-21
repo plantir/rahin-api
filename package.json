@@ -26,7 +26,7 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "@rocketseat/adonis-bull": "^0.2.1",
-    "lucid-mongo": "^3.1.6",
+    "mysql": "^2.18.1",
     "request": "^2.88.2",
     "vrwebdesign-adonis": "^1.1.6"
   },

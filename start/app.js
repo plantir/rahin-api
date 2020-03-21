@@ -17,10 +17,9 @@ const providers = [
   '@adonisjs/bodyparser/providers/BodyParserProvider',
   '@adonisjs/cors/providers/CorsProvider',
   '@adonisjs/framework/providers/ViewProvider',
-  // '@adonisjs/lucid/providers/LucidProvider',
-  'lucid-mongo/providers/LucidMongoProvider',
-  path.join(__dirname, '..', 'providers', 'BaseModelProvider'),
-  // 'vrwebdesign-adonis/BaseModel/providers/BaseModelProvider',
+  '@adonisjs/lucid/providers/LucidProvider',
+  // '/providers/LucidMongoProvider',
+  'vrwebdesign-adonis/BaseModel/providers/BaseModelProvider',
   'vrwebdesign-adonis/BaseRoute/providers/BaseRouteProvider',
   'vrwebdesign-adonis/Helper/providers/HelperProvider',
   'vrwebdesign-adonis/Providers/sms',
@@ -36,10 +35,7 @@ const providers = [
 | Providers for migrations, tests etc.
 |
 */
-const aceProviders = [
-  // '@adonisjs/lucid/providers/MigrationsProvider',
-  'lucid-mongo/providers/MigrationsProvider'
-];
+const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider'];
 
 /*
 |--------------------------------------------------------------------------

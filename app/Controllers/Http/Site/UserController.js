@@ -22,24 +22,26 @@ class UserController extends Resource {
     let user = await auth.getUser();
     let { level, field_name, video_name } = request.post();
 
-    let fields = user[`video_${level}`].fields;
+    let video_index = user
+      .toJSON()
+      .videos.findIndex(item => item.level == level);
+    let fields = user.videos[video_index].fields;
     let field_index = fields.findIndex(item => item.name == field_name);
     let videos = fields[field_index].videos;
     videos = videos.map(item => {
-      if (item.name == video_name) {
+      if (item.name == video_name && !item.is_seen) {
         item.is_seen = true;
       }
       return item;
     });
     await user.save();
-    user = user.forClient();
     return user;
   }
 
   async getTestAnswer({ params: { name }, auth }) {
     let user = await auth.getUser();
-    return user.toJSON().personality_tests.find(item => item.test_name == name)
-      .answer;
+    user = user.toJSON();
+    return user.personality_tests.find(item => item.test_name == name).answer;
   }
 }
 

@@ -1,6 +1,5 @@
 'use strict';
 
-/** @type {typeof import('lucid-mongo/src/LucidMongo/Model')} */
 const Model = use('BaseModel');
 
 const Bull = use('Rocketseat/Bull');
@@ -12,11 +11,32 @@ const Env = use('Env');
 class User extends Model {
   static boot() {
     super.boot();
+    this.addTrait('ConvertToJson');
     this.addHook('beforeCreate', 'UserHook.beforeCreate');
     this.addHook('beforeSave', 'UserHook.beforeSave');
   }
   static get hidden() {
     return ['password', 'role'];
+  }
+  // static get visible() {
+  //   return [
+  //     '_id',
+  //     'mobile',
+  //     'gender',
+  //     'name',
+  //     'family',
+  //     'birthday',
+  //     'tel',
+  //     'email',
+  //     'progress_level',
+  //     'next_step_label',
+  //     'next_step_url',
+  //     'created_at',
+  //     'updated_at'
+  //   ];
+  // }
+  static get jsonFields() {
+    return ['personality_tests', 'videos'];
   }
   static get allowFields() {
     return ['name', 'family', 'email', 'birthday', 'tel', 'gender'];
@@ -26,10 +46,10 @@ class User extends Model {
   }
   static async register(mobile) {
     let user = await this.query()
-      .where({ mobile })
+      .where({ username: mobile })
       .first();
     if (!user) {
-      user = await User.create({ mobile });
+      user = await User.create({ username: mobile, mobile, password: mobile });
     }
     await user.send_verify_code();
   }
@@ -96,14 +116,6 @@ class User extends Model {
   }
   tokens() {
     return this.hasMany('App/Models/Token');
-  }
-
-  personality_tests() {
-    return this.embedsMany(
-      'App/Models/PersonalityTest',
-      '_id',
-      'personality_tests'
-    );
   }
 }
 
