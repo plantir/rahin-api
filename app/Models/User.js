@@ -18,27 +18,10 @@ class User extends Model {
   static get hidden() {
     return ['password', 'role'];
   }
-  // static get visible() {
-  //   return [
-  //     '_id',
-  //     'mobile',
-  //     'gender',
-  //     'name',
-  //     'family',
-  //     'birthday',
-  //     'tel',
-  //     'email',
-  //     'progress_level',
-  //     'next_step_label',
-  //     'next_step_url',
-  //     'created_at',
-  //     'updated_at'
-  //   ];
-  // }
   static get jsonFields() {
     return ['personality_tests', 'videos'];
   }
-  static get allowFields() {
+  static get allowField() {
     return ['name', 'family', 'email', 'birthday', 'tel', 'gender'];
   }
   static get dates() {
@@ -82,40 +65,12 @@ class User extends Model {
       console.log(error);
     }
   }
-  forClient() {
-    let {
-      _id,
-      mobile,
-      gender,
-      name,
-      family,
-      birthday,
-      tel,
-      email,
-      progress_level,
-      next_step_label,
-      next_step_url,
-      created_at,
-      updated_at
-    } = this.toJSON();
-    return {
-      _id,
-      mobile,
-      gender,
-      name,
-      family,
-      birthday,
-      tel,
-      email,
-      progress_level,
-      next_step_label,
-      next_step_url,
-      created_at,
-      updated_at
-    };
-  }
+
   tokens() {
     return this.hasMany('App/Models/Token');
+  }
+  roles() {
+    return this.belongsToMany('App/Models/Role').pivotTable('user_roles');
   }
 }
 

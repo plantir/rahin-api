@@ -32,14 +32,14 @@ module.exports = {
   |
   */
   local: {
-    host: '127.0.0.1',
+    host: host.docker.internal,
     port: 6379,
     password: null,
     db: 0,
     keyPrefix: ''
   },
   Bull: {
-    host: '127.0.0.1',
+    host: host.docker.internal,
     port: 6379,
     password: null,
     db: 0,
@@ -57,13 +57,13 @@ module.exports = {
   cluster: {
     clusters: [
       {
-        host: '127.0.0.1',
+        host: host.docker.internal,
         port: 6379,
         password: null,
         db: 0
       },
       {
-        host: '127.0.0.1',
+        host: host.docker.internal,
         port: 6380,
         password: null,
         db: 0

@@ -1,10 +1,9 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('BaseRoute');
 
-// Route.resource('users', 'UserController').prefix('admin');
 Route.group(() => {
-  Route.customResource('', 'UserController');
+  Route.customResource('', 'BlogController');
 })
-  .prefix('admin/users')
+  .prefix('admin/blogs')
   .namespace('Admin')
   .middleware('auth');

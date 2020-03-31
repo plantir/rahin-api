@@ -19,15 +19,16 @@ class AuthController {
   async login({ request, auth }) {
     let { username, password } = request.post();
     try {
-      await auth.authenticator('jwtAdmin').attempt(username, password);
+      await auth.attempt(username, password);
     } catch (error) {
       throw new Error('نام کاربری یا رمز عبور صحیح نمی باشد.');
     }
     let user = await User.findBy({ username });
-    if (!user.is_verify) {
+    await user.load('roles');
+    if (!user.$relations.roles.toJSON().some(item => item.name == 'admin')) {
       throw new Error('این ادمین هنوز تایید نشده است');
     }
-    return auth.generate(user);
+    return auth.generate(user, true);
   }
 }
 

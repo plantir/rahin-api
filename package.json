@@ -28,6 +28,7 @@
     "@rocketseat/adonis-bull": "^0.2.1",
     "mysql": "^2.18.1",
     "request": "^2.88.2",
+    "sharp": "^0.25.2",
     "vrwebdesign-adonis": "^1.1.6"
   },
   "devDependencies": {},
