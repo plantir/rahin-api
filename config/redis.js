@@ -32,14 +32,14 @@ module.exports = {
   |
   */
   local: {
-    host: host.docker.internal,
+    host: Env.get('REDIS_HOST', 'redis'),
     port: 6379,
     password: null,
     db: 0,
     keyPrefix: ''
   },
   Bull: {
-    host: host.docker.internal,
+    host: Env.get('REDIS_HOST', 'redis'),
     port: 6379,
     password: null,
     db: 0,
@@ -57,13 +57,13 @@ module.exports = {
   cluster: {
     clusters: [
       {
-        host: host.docker.internal,
+        host: Env.get('REDIS_HOST', 'redis'),
         port: 6379,
         password: null,
         db: 0
       },
       {
-        host: host.docker.internal,
+        host: Env.get('REDIS_HOST', 'redis'),
         port: 6380,
         password: null,
         db: 0
