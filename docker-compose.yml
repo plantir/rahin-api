@@ -3,16 +3,18 @@ services:
   node:
     build:
       context: ./
-    volumes:
-      - '/etc/localtime:/etc/localtime:ro'
+    networks:
+      - app_mehdi_net
     ports:
-      - 3333:3333
+      - 3331:3333
   redis:
     image: bitnami/redis:latest
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - 6379
+    networks:
+      - app_mehdi_net
 
 networks:
   app_mehdi_net:
