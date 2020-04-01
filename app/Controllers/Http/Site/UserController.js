@@ -8,7 +8,6 @@ class UserController extends Resource {
   }
   async get({ auth }) {
     let user = await auth.getUser();
-    user = user.forClient();
     return user;
   }
   async update({ request, auth }) {
@@ -16,7 +15,7 @@ class UserController extends Resource {
     let data = request.only(this.Model.allowFields);
     user.merge(data);
     await user.save();
-    return user.forClient();
+    return user;
   }
   async seeVideo({ request, auth }) {
     let user = await auth.getUser();
