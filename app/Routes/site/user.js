@@ -1,6 +1,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
-
+Route.get('test', () => {
+  return 'test';
+});
 Route.group(() => {
   Route.get('', 'UserController.get');
   Route.put('', 'UserController.update');
